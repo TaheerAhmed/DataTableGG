@@ -1,0 +1,58 @@
+
+@import "rsuite/dist/rsuite.css";
+.date-picker {
+  position: relative;
+  display: inline-block;
+}
+
+.date-picker__button {
+  cursor: pointer;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 5px 10px;
+  font-size: 14px;
+  border-radius: 4px;
+}
+
+.date-picker__calendar {
+  display: none;
+  position: absolute;
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 4px;
+  z-index: 1;
+}
+
+.date-picker__calendar.show {
+  display: block;
+}
+
+.calendar__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.calendar__table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.calendar__table td {
+  width: 14.28%;
+  text-align: center;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.calendar__table td.disabled {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.calendar__table td.selected {
+  background-color: #007bff;
+  color: white;
+}
