@@ -1,5 +1,5 @@
 import React from 'react'
-import Date from './Date'
+import DateSelect from './Date'
 import Table from './Table'
 const Analytics = () => {
     const dummyData = [
@@ -67,16 +67,12 @@ const Analytics = () => {
             revenue: 7742.423646628184
         }
     ];
-useEffect(() => {
-  
 
-  
-}, [third])
 
     
   return (
       <div>hello
-          <Date />
+          <DateSelect />
           <Table data={dummyData} /></div>
   )
 }

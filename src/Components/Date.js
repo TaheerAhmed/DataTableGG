@@ -1,40 +1,44 @@
-import React,{useState} from 'react'
-import { DateRangePicker,Stack  } from 'rsuite';
+import React, { useState, useEffect } from 'react'
+import { DateRangePicker, Stack } from 'rsuite';
 import '../styles/Date.css'
+import { useSelector, useDispatch } from 'react-redux'
+import { dateActions } from '../store/Slices/dateSlice';
+const DateSelect = () => {
+  const [value, setValue] = useState([]);
+  function formatDate(inputDate) {
+    const date = new Date(inputDate);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
 
-const Date = () => {
-    const [value, setValue] =useState([]);
+  const dispatch = useDispatch()
 
-    function getOrdinalSuffix(day) {
-        if (day > 3 && day < 21) return 'th';
-        switch (day % 10) {
-            case 1: return 'st';
-            case 2: return 'nd';
-            case 3: return 'rd';
-            default: return 'th';
-        }
+  useEffect(() => {
+
+    if (value !== null) {
+      dispatch(dateActions.setEndDate(String(formatDate(value[1]))))
+      dispatch(dateActions.setStartDate(String(formatDate(value[0]))))
     }
-    function formatDate(dateString) {
-        const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-        const date = new Date(dateString);
-        const month = months[date.getMonth()];
-        const year = date.getFullYear();
-        const day = date.getDate();
-        const suffix = getOrdinalSuffix(day);
-        return `${day}${suffix} ${month} ${year}`;
+    else {
+      dispatch(dateActions.setEndDate(""))
+      dispatch(dateActions.setStartDate(""))
     }
-    console.log(value)
+
+  }, [value, dispatch])
+  console.log(value)
   return (
     <div>
-          <DateRangePicker
-          onChange={setValue}
-          value={value}
-          format="MMM do yyyy"
-          placeholder="hello"
-             />
-        
+      <DateRangePicker
+        onChange={setValue}
+        value={value}
+        format="MMM do yyyy"
+        placeholder="Select a time frame"
+      />
+
     </div>
   )
 }
 
-export default Date
+export default DateSelect
