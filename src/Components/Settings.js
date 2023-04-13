@@ -97,7 +97,7 @@ const Settings = () => {
                             </div>
                         </div>}
                     </div>
-                    <div>          
+                    <div className='buttons-set'>          
                         <button
                             className="cancel-button"
                             onClick={handleCancel}
