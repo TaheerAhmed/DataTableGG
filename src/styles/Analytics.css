@@ -1,38 +1,36 @@
 .table-box {
   position: relative;
-  height: 400px; /* Set the desired height of the table and error modal */
-
-    
-  /* overflow: hidden; Hide any overflowing content */
+  height: 400px;
 }
-.analytics-home{
-    margin: 50px;
+.analytics-home {
+  margin: 50px;
 }
-.title-analytics{
-    font-size: 20px;
-    font-weight: bold;
-    color:#1D1A1A;
-    margin-bottom: 20px;
+.title-analytics {
+  font-size: 20px;
+  font-weight: bold;
+  color: #1d1a1a;
+  margin-bottom: 20px;
 }
 .analytics-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    margin-bottom: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 10px;
 }
 
-.settin{
-    background-color: white;
-    color: black;
-    font-weight :bold;
-    border: 1px solid #EAEAEA;
-    border-radius: 3px;
-    padding: 5px;
-    padding-right: 10px;
+.settin {
+  background-color: white;
+  color: black;
+  font-weight: bold;
+  border: 1px solid #eaeaea;
+  border-radius: 3px;
+  padding: 5px;
+  padding-right: 10px;
 }
-.settings-icon{
-    width: 16px;
-    height: 16px;
-    margin: 4px 10px 4px 10px;
-    filter: invert(23%) sepia(94%) saturate(3102%) hue-rotate(210deg) brightness(105%) contrast(86%);
+.settings-icon {
+  width: 16px;
+  height: 16px;
+  margin: 4px 10px 4px 10px;
+  filter: invert(23%) sepia(94%) saturate(3102%) hue-rotate(210deg)
+    brightness(105%) contrast(86%);
 }

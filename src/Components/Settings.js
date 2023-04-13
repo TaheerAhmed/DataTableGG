@@ -12,8 +12,9 @@ const Settings = () => {
     const [dragId, setDragId] = useState();
     const [boxes, setBoxes] = useState(initialBoxes);
     const [errorModal, setErrorModal] = useState(false);
-
+    // to toggle the visibility of various columns
     const toggleAvailability = (id) => {
+        // to prevent Date and App Name from being toggled as they are always visible
         if (id === "Date" || id === "App Name") {
             setErrorModal(true);
             return;
@@ -24,11 +25,11 @@ const Settings = () => {
             )
         );
     };
-
+    // to set the id of the column being dragged
     const handleDrag = (ev) => {
         setDragId(ev.currentTarget.id);
     };
-
+    // to swap the order of the columns
     const handleDrop = (ev) => {
         const dragBox = boxes.find((box) => box.id === dragId);
         const dropBox = boxes.find((box) => box.id === ev.currentTarget.id);
@@ -48,12 +49,12 @@ const Settings = () => {
 
         setBoxes(newBoxState);
     };
-
+    // to save the changes made to the columns
     const handleSave = () => {
         dispatch(settingActions.setUpdatedBoxes([...boxes].sort((a, b) => a.order - b.order)));
         dispatch(settingActions.setSettingModal(false));
     };
-
+    // to cancel the changes made to the columns
     const handleCancel = () => {
         setBoxes(initialBoxes);
         dispatch(settingActions.setSettingModal(false));
@@ -87,7 +88,7 @@ const Settings = () => {
                                     &times;
                                 </button>
                                 <p className="error-message">
-                                    Date and App Name can't be disabled
+                                    Date and App Name Columns can't be disabled
                                 </p>
                             </div>
                         </div>}

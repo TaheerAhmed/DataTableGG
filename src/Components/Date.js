@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { DateRangePicker, Stack } from 'rsuite';
+import { DateRangePicker } from 'rsuite';
 import '../styles/Date.css'
-import { useSelector, useDispatch } from 'react-redux'
+import {  useDispatch } from 'react-redux'
 import { dateActions } from '../store/Slices/dateSlice';
 const DateSelect = () => {
   const [value, setValue] = useState([]);
+  // date format function
   function formatDate(inputDate) {
     const date = new Date(inputDate);
     const year = date.getFullYear();
@@ -14,7 +15,7 @@ const DateSelect = () => {
   }
 
   const dispatch = useDispatch()
-
+// used to set the date in redux store
   useEffect(() => {
 
     if (value !== null) {
