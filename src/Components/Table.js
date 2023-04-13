@@ -1,12 +1,16 @@
 import React, { useState } from 'react'
 import '../styles/Table.css'
 import Select from 'react-select';
+import {useDispatch, useSelector} from 'react-redux'
+import { tableActions } from '../store/Slices/tableSlice';
 const Table = ({ data }) => {
+  const dispatch = useDispatch()
   const [sortConfig, setSortConfig] = useState(null);
   const [filters, setFilters] = useState({});
   const [filterSelect, setFilterSelect] = useState(false);
   const [sortingState, setSortingState] = useState(null);
-  const [tempSliderValues, setTempSliderValues] = useState({});
+  const tempSliderValues= useSelector(state => state.table.tempSliderValues)
+
 // sort function for the table
   const sortData = (data, config) => {
     if (!config) return data;
@@ -60,7 +64,7 @@ const Table = ({ data }) => {
     let value;
     if (selectedOptionOrEvent && selectedOptionOrEvent.target) {
       value = selectedOptionOrEvent.target.value;
-      setTempSliderValues({ ...tempSliderValues, [key]: value });
+      dispatch(tableActions.setTempSliderValues({ ...tempSliderValues, [key]: value }));
       return;
     } else if (selectedOptionOrEvent) {
       value = selectedOptionOrEvent.value;
@@ -85,7 +89,7 @@ const Table = ({ data }) => {
   const resetSlider = (key) => {
     const newTempSliderValues = { ...tempSliderValues };
     delete newTempSliderValues[key];
-    setTempSliderValues(newTempSliderValues);
+   dispatch(tableActions.setTempSliderValues(newTempSliderValues));
 
     const newFilters = { ...filters };
     delete newFilters[key];
@@ -136,6 +140,8 @@ const Table = ({ data }) => {
   }
   };
   const filteredData = filterData(data, filters, filterSelect);
+  console.log(tempSliderValues)
+  console.log(filteredData)
   const sortedData = sortData(filteredData, sortConfig);
   return (
     <div className="table-container">
