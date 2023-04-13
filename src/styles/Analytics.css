@@ -18,4 +18,21 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.settin{
+    background-color: white;
+    color: black;
+    font-weight :bold;
+    border: 1px solid #EAEAEA;
+    border-radius: 3px;
+    padding: 5px;
+    padding-right: 10px;
+}
+.settings-icon{
+    width: 16px;
+    height: 16px;
+    margin: 4px 10px 4px 10px;
+    filter: invert(23%) sepia(94%) saturate(3102%) hue-rotate(210deg) brightness(105%) contrast(86%);
 }

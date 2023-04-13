@@ -148,6 +148,7 @@ const Analytics = () => {
                 }}
                     className='settin'
                 >
+                    <img src={require('../assets//logos/settings.png')} alt='settings' className='settings-icon' />
                     Settings</div>
             </div>
             <Settings />
