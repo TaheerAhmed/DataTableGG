@@ -8,10 +8,6 @@ const Box = ({ boxNumber, handleDrag, handleDrop,available,onClick }) => {
             onDragOver={(ev) => ev.preventDefault()}
             onDragStart={handleDrag}
             onDrop={handleDrop}
-            style={{
-                // backgroundColor: boxColor,
-
-            }}
             className="boxes"
             onClick={onClick}
         >

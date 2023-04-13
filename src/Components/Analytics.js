@@ -17,8 +17,7 @@ const Analytics = () => {
 
     const [data, setdata] = useState([])
     const [formattedData, setFormattedData] = useState(data)
-
-    //dat formatter
+    // date format function
     function formatDate(dateString) {
         const months = [
             "January",
@@ -52,6 +51,7 @@ const Analytics = () => {
 
         return `${day}${suffix} ${months[monthIndex]} ${year}`;
     }
+    // fetch data from api
     useEffect(() => {
         const fetchData = async () => {
             if (startDate !== "" && endDate !== "") {
@@ -69,7 +69,7 @@ const Analytics = () => {
         }
     }, [startDate, endDate])
 
-
+    // format data
     useEffect(() => {
         function formatData(dummyData, dataLayer) {
             return dummyData.map(item => {
@@ -136,7 +136,6 @@ const Analytics = () => {
         setFormattedData(formatData(data, columnFormat))
     },
         [columnFormat, data])
-    console.log(formattedData)
     const tableValidation = (startDate !== "" && startDate !== null && startDate !== undefined) && (endDate !== "" && endDate !== undefined && endDate != null) && formattedData.length > 0
     return (
         <div className='analytics-home'>

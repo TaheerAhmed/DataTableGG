@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { logo } from '../assets/logos/filtericon.png';
 import '../styles/Table.css'
 import Select from 'react-select';
 const Table = ({ data }) => {
@@ -8,7 +7,7 @@ const Table = ({ data }) => {
   const [filterSelect, setFilterSelect] = useState(false);
   const [sortingState, setSortingState] = useState(null);
   const [tempSliderValues, setTempSliderValues] = useState({});
-
+// sort function for the table
   const sortData = (data, config) => {
     if (!config) return data;
 
@@ -22,7 +21,7 @@ const Table = ({ data }) => {
       return 0;
     });
   };
-
+  // function to handle the sorting of the table
   const requestSort = (key) => {
     let direction = "ascending";
     if (sortConfig && sortConfig.key === key && sortConfig.direction === "ascending") {
@@ -32,7 +31,7 @@ const Table = ({ data }) => {
     setSortingState(key);
   };
 
-
+// function to handle the filtering of the table
   const filterData = (data, filters) => {
     return data.filter((row) => {
       for (const key in filters) {

@@ -9,7 +9,7 @@ table {
   margin: 0 auto;
   padding: 0;
   table-layout: fixed;
-  min-width:98%;
+  min-width: 98%;
 }
 
 thead {
@@ -35,7 +35,7 @@ td {
   width: 5%;
   min-width: 100px;
   text-overflow: ellipsis;
-  border-bottom: 1px solid  #70707045;
+  border-bottom: 1px solid #70707045;
   box-sizing: border-box;
   max-width: 130px;
   overflow: visible;
@@ -82,13 +82,12 @@ input[type="text"] {
 .image-container {
   display: flex;
 
-
   background-color: #ffffff;
   margin: 4px;
-
 }
-.filterIcon{
-  filter: invert(44%) sepia(0%) saturate(1025%) hue-rotate(275deg) brightness(97%) contrast(81%);
+.filterIcon {
+  filter: invert(44%) sepia(0%) saturate(1025%) hue-rotate(275deg)
+    brightness(97%) contrast(81%);
 }
 
 .slider-container {
@@ -104,20 +103,18 @@ input[type="text"] {
   right: 40%; /* Add this property */ /* Add this property */
 }
 
-
 .slider-min-label,
 .slider-max-label {
   font-size: 14px;
   font-weight: bold;
   display: flex;
-
 }
-.min-max{
-display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    align-content: flex-start;
-    margin-bottom: 10px;
+.min-max {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  margin-bottom: 10px;
 }
 input[type="range"] {
   width: 100%;
@@ -142,7 +139,7 @@ input[type="range"] {
 .close-filter {
   position: absolute;
   top: 5px;
-  right:15px;
+  right: 15px;
   cursor: pointer;
   font-size: 14px;
   font-weight: bold;

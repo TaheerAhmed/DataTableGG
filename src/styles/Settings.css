@@ -1,158 +1,144 @@
-
-.settings{
-    background-color: white;
-    width: 100%;
-    height: 100%;
-    border:1px solid rgba(198, 198, 198, 0.492);
-    padding: 2% 3% 2% 3%;
-    margin: 0 auto;
+.settings {
+  background-color: white;
+  width: 100%;
+  height: 100%;
+  border: 1px solid rgba(198, 198, 198, 0.492);
+  padding: 2% 3% 2% 3%;
+  margin: 0 auto;
 }
 .settings-box {
-    width: 95%;
-    height: auto;
-    display: flex; 
-    flex-wrap: wrap;
-    align-items: flex-start; 
-    background-color: white;
-    
-
-    
+  width: 95%;
+  height: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  background-color: white;
 }
 
 .boxes {
-    width: 150px;
-    height: 30px;
-    display: flex;
-    align-items:center;
-    border-radius: 3px;
-    justify-content: start; 
-    margin: 0.5%;
-    background-color: white;
-    border:1px solid rgba(198, 198, 198, 0.492);
+  width: 150px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  border-radius: 3px;
+  justify-content: start;
+  margin: 0.5%;
+  background-color: white;
+  border: 1px solid rgba(198, 198, 198, 0.492);
 
-    overflow: hidden;
+  overflow: hidden;
 }
 
-
 .box-side {
-    width: 5px;
-    height: 30px;
-    border-radius: 3%;
-    background-color: #136fed;
-    left: 0;
-    border-radius: 10%;
+  width: 5px;
+  height: 30px;
+  border-radius: 3%;
+  background-color: #136fed;
+  left: 0;
+  border-radius: 10%;
 
-    top: 0;
+  top: 0;
 }
 
 .box-side-available {
-    opacity: 1;
+  opacity: 1;
 }
 
 .box-side-available-not {
-    opacity: 0;
+  opacity: 0;
 }
-.box-title{
-    width: 100%;
-    height: 30px;
-    display: flex;
-    align-items:center;
-    margin: 1% 0% 1% 6%;
-    background-color: white;
-    text-decoration-color: black;
+.box-title {
+  width: 100%;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  margin: 1% 0% 1% 6%;
+  background-color: white;
+  text-decoration-color: black;
 }
 .settings {
-    position: relative;
+  position: relative;
 }
 
 .save-button,
 .cancel-button {
-    cursor: pointer;
-    border: none;
-    padding: 10px 20px;
-    font-size: 14px;
-    font-weight: bold;
-    border-radius: 4px;
-    margin: 5px;
-    flex-direction: flex-end;
+  cursor: pointer;
+  border: none;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 4px;
+  margin: 5px;
+  flex-direction: flex-end;
 }
 
 .save-button {
-    background-color: #136FED;
-    color: white;
-    border-radius: 3px;
+  background-color: #136fed;
+  color: white;
+  border-radius: 3px;
 }
 
 .cancel-button {
-    background-color: white;
-    color: #136FED;
-    border: 1px solid #EAEAEA;
-    border-radius: 3px;
+  background-color: white;
+  color: #136fed;
+  border: 1px solid #eaeaea;
+  border-radius: 3px;
 }
 
 button.save-button:hover,
 button.cancel-button:hover {
-    opacity: 0.8;
+  opacity: 0.8;
 }
 .buttons-set {
-
-    display: flex;
-    justify-items: center;
-    justify-content: flex-end;
-    align-content: center;
-    flex-wrap: wrap;
-    flex-direction: row;
+  display: flex;
+  justify-items: center;
+  justify-content: flex-end;
+  align-content: center;
+  flex-wrap: wrap;
+  flex-direction: row;
 }
-.settings-button{
-    background-color: white;
-    color:#136FED ;
-    width: 100%;
-    border:1px solid #70707038;
-    
+.settings-button {
+  background-color: white;
+  color: #136fed;
+  width: 100%;
+  border: 1px solid #70707038;
 }
-.settings-icon{
-    width: 26px;
-    height: 26px;
+.settings-icon {
+  width: 26px;
+  height: 26px;
 }
-
-
-
-
-
-
 
 /* Modal container */
 .error-modal {
-    display: flex;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.75);
-    z-index: 1000;
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.75);
+  z-index: 1000;
 }
 
 /* Modal content */
 .error-modal-content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: rgba(255, 255, 255, 0.916);
-    padding: 20px;
-    border: 1px solid gray;
-    border-radius: 4px;
-    width: 80%;
-    max-width: 100vw;
-    text-align: center;
-    height: 60%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.916);
+  padding: 20px;
+  border: 1px solid gray;
+  border-radius: 4px;
+  width: 80%;
+  max-width: 100vw;
+  text-align: center;
+  height: 60%;
 }
 
 /* Error message text */
 .error-message {
   font-size: 50px;
   font-weight: bold;
-
 }
 .close-button {
   position: absolute;
@@ -162,27 +148,23 @@ button.cancel-button:hover {
   background-color: transparent;
   border: none;
   cursor: pointer;
-
 }
 
 .close-button:hover {
   color: rgba(0, 0, 0, 0.297);
-
 }
 
 /* Updated rule for the error-modal-content */
 .error-modal-content {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: white;
-    padding: 20px;
-    border: 1px solid gray;
-    border-radius: 4px;
-    text-align: center;
-    top: 5%;
-    margin: 0 auto;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  padding: 20px;
+  border: 1px solid gray;
+  border-radius: 4px;
+  text-align: center;
+  top: 5%;
+  margin: 0 auto;
 }
-
-
