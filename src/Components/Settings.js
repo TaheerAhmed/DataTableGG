@@ -1,0 +1,119 @@
+import React, { useState } from 'react'
+import Box from './Box'
+import '../styles/Settings.css'
+import { useSelector, useDispatch } from 'react-redux'
+import { settingActions } from '../store/Slices/settingSlice'
+
+const Settings = () => {
+    const dispatch = useDispatch();
+    const initialBoxes = useSelector(state => state.setting.boxes);
+    const [settingsVisible, setSettingsVisible] = useState(false);
+    const [dragId, setDragId] = useState();
+    const [boxes, setBoxes] = useState(initialBoxes);
+    const [errorModal, setErrorModal] = useState(false);
+    const toggleSetting = () => {
+        setSettingsVisible(!settingsVisible);
+    };
+
+    const toggleAvailability = (id) => {
+        if (id === "Date" || id === "App Name") {
+            setErrorModal(true);
+            // setTimeout(() => {
+            //     setErrorModal(false);
+            // }, 1500);
+            return;
+        }
+        setBoxes((prevBoxes) =>
+            prevBoxes.map((box) =>
+                (box.id !== "Date" && box.id !== "App Name" && box.id === id) ? { ...box, available: !box.available } : box
+            )
+        );
+    };
+
+    const handleDrag = (ev) => {
+        setDragId(ev.currentTarget.id);
+    };
+
+    const handleDrop = (ev) => {
+        const dragBox = boxes.find((box) => box.id === dragId);
+        const dropBox = boxes.find((box) => box.id === ev.currentTarget.id);
+
+        const dragBoxOrder = dragBox.order;
+        const dropBoxOrder = dropBox.order;
+
+        const newBoxState = boxes.map((box) => {
+            if (box.id === dragId) {
+                return { ...box, order: dropBoxOrder };
+            }
+            if (box.id === ev.currentTarget.id) {
+                return { ...box, order: dragBoxOrder };
+            }
+            return box;
+        });
+
+        setBoxes(newBoxState);
+    };
+
+    const handleSave = () => {
+        dispatch(settingActions.setUpdatedBoxes([...boxes].sort((a, b) => a.order - b.order)));
+        toggleSetting();
+    };
+
+    const handleCancel = () => {
+        setBoxes(initialBoxes);
+        toggleSetting();
+    };
+    return (
+        <div>
+            <div onClick={toggleSetting}>Settings</div>
+            {settingsVisible ? (
+                <div className="settings">
+                    <div>Dimensions & Metrics</div>
+                    <div className="settings-box">
+                        
+                        {[...boxes]
+                            .sort((a, b) => a.order - b.order)
+                            .map((box) => (
+                                    <Box
+                                        className="boxe"
+                                        key={box.id}
+                                        boxColor={box.service_name}
+                                        boxNumber={box.id}
+                                        handleDrag={handleDrag}
+                                        handleDrop={handleDrop}
+                                        available={box.available}
+                                        onClick={() => toggleAvailability(box.id)}
+                                    />
+                                
+                            ))}
+                        {errorModal&&<div className="error-modal">
+                            <div className="error-modal-content">
+                                <button className="close-button" onClick={()=>setErrorModal(false)}>
+                                    &times;
+                                </button>
+                                <p className="error-message">
+                                    Date and App Name can't be disabled
+                                </p>
+                            </div>
+                        </div>}
+                    </div>
+                    <div>          
+                        <button
+                            className="cancel-button"
+                            onClick={handleCancel}
+                        >
+                            Cancel
+                        </button>
+                        <button className="save-button" onClick={handleSave}>
+                            Apply Changes
+                        </button>
+                    </div>
+                </div>
+            ) : (
+                <></>
+            )}
+        </div>
+    );
+};
+
+export default Settings;

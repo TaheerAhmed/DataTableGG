@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import DateSelect from './Date'
 import Table from './Table'
+
+import Settings from './Settings'
 const Analytics = () => {
+
     const dummyData = [
         {
             date: "2021-07-07T00:00:00Z",
@@ -67,14 +70,14 @@ const Analytics = () => {
             revenue: 7742.423646628184
         }
     ];
+    const [data, setdata] = useState(dummyData)
 
-
-    
-  return (
-      <div>hello
-          <DateSelect />
-          <Table data={dummyData} /></div>
-  )
+    return (
+        <div>
+            <div><DateSelect />
+                <div><Settings /></div></div>
+            {data.length > 0 ? <Table data={data} /> : <div></div>}</div>
+    )
 }
 
 export default Analytics
