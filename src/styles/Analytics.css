@@ -14,3 +14,8 @@
     color:#1D1A1A;
     margin-bottom: 20px;
 }
+.analytics-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}

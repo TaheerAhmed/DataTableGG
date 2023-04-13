@@ -28,7 +28,6 @@ const DateSelect = () => {
 
   }, [value, dispatch])
   return (
-    <div>
       <DateRangePicker
         onChange={setValue}
         value={value}
@@ -36,7 +35,6 @@ const DateSelect = () => {
         placeholder="Select a time frame"
       />
 
-    </div>
   )
 }
 

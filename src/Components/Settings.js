@@ -7,20 +7,15 @@ import { settingActions } from '../store/Slices/settingSlice'
 const Settings = () => {
     const dispatch = useDispatch();
     const initialBoxes = useSelector(state => state.setting.boxes);
-    const [settingsVisible, setSettingsVisible] = useState(false);
+    const settingsVisible = useSelector(state => state.setting.showSettingModal)
+
     const [dragId, setDragId] = useState();
     const [boxes, setBoxes] = useState(initialBoxes);
     const [errorModal, setErrorModal] = useState(false);
-    const toggleSetting = () => {
-        setSettingsVisible(!settingsVisible);
-    };
 
     const toggleAvailability = (id) => {
         if (id === "Date" || id === "App Name") {
             setErrorModal(true);
-            // setTimeout(() => {
-            //     setErrorModal(false);
-            // }, 1500);
             return;
         }
         setBoxes((prevBoxes) =>
@@ -56,16 +51,16 @@ const Settings = () => {
 
     const handleSave = () => {
         dispatch(settingActions.setUpdatedBoxes([...boxes].sort((a, b) => a.order - b.order)));
-        toggleSetting();
+        dispatch(settingActions.setSettingModal(false));
     };
 
     const handleCancel = () => {
         setBoxes(initialBoxes);
-        toggleSetting();
+        dispatch(settingActions.setSettingModal(false));
+
     };
     return (
         <div>
-            <div onClick={toggleSetting}>Settings</div>
             {settingsVisible ? (
                 <div className="settings">
                     <div>Dimensions & Metrics</div>

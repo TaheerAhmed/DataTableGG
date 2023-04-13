@@ -58,7 +58,8 @@ const initialSettingState = {
             order: 9,
             available: true
         }
-    ]
+    ],
+    showSettingModal: false
 }
 
 const settingSlice = createSlice(
@@ -68,6 +69,9 @@ const settingSlice = createSlice(
         reducers: {
             setUpdatedBoxes(state, action) {
                 state.boxes = action.payload
+            },
+            setSettingModal(state, action) {
+                state.showSettingModal = action.payload
             }
         }
 

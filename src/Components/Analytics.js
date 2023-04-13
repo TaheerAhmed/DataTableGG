@@ -6,11 +6,15 @@ import Settings from './Settings'
 import axios from 'axios'
 import ErrorModal from './ErrorModal'
 import '../styles/Analytics.css'
+import { useDispatch } from 'react-redux'
+import { settingActions } from '../store/Slices/settingSlice'
 const Analytics = () => {
-
+    const dispatch = useDispatch()
     const startDate = useSelector(state => state.date.startDate)
     const endDate = useSelector(state => state.date.endDate)
-    const columnFormat=useSelector(state=>state.setting.boxes)
+    const columnFormat = useSelector(state => state.setting.boxes)
+    const settingsVisible = useSelector(state => state.setting.showSettingModal)
+
     const [data, setdata] = useState([])
     const [formattedData, setFormattedData] = useState(data)
 
@@ -65,7 +69,7 @@ const Analytics = () => {
         }
     }, [startDate, endDate])
 
-    
+
     useEffect(() => {
         function formatData(dummyData, dataLayer) {
             return dummyData.map(item => {
@@ -102,9 +106,9 @@ const Analytics = () => {
                                 ).toFixed(2));
                                 break;
                             case 'CTR':
-                                itemData[dataLayerItem.service_name] = 
+                                itemData[dataLayerItem.service_name] =
                                     Number(((item.clicks / item.impressions) * 100).toFixed(2));
-                             
+
                                 break;
                             default:
                                 break;
@@ -128,27 +132,32 @@ const Analytics = () => {
                 return { ...nonEmptyFields, ...emptyFields };
             });
         }
-        
+
         setFormattedData(formatData(data, columnFormat))
-    }, 
-         [columnFormat,data])
-console.log(formattedData)
+    },
+        [columnFormat, data])
+    console.log(formattedData)
     const tableValidation = (startDate !== "" && startDate !== null && startDate !== undefined) && (endDate !== "" && endDate !== undefined && endDate != null) && formattedData.length > 0
     return (
         <div className='analytics-home'>
             <div className='title-analytics'>Analytics</div>
-            <div>
+            <div className="analytics-buttons">
                 <DateSelect />
-                <div>
-                    <Settings />
-                </div>
+                <div onClick={() => {
+                    dispatch(settingActions.setSettingModal(!settingsVisible));
+                }}
+                    className='settin'
+                >
+                    Settings</div>
             </div>
+            <Settings />
+
             <div className='table-box'>
-                {tableValidation ? <Table data={formattedData} /> :<ErrorModal/>}
+                {tableValidation ? <Table data={formattedData} /> : <ErrorModal />}
 
 
             </div>
-           
+
         </div>
     )
 }
