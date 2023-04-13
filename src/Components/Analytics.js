@@ -1,80 +1,165 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import DateSelect from './Date'
 import Table from './Table'
+import { useSelector } from 'react-redux'
+import Settings from './Settings'
+import axios from 'axios'
+import ErrorModal from './ErrorModal'
+import '../styles/Analytics.css'
+import { useDispatch } from 'react-redux'
+import { settingActions } from '../store/Slices/settingSlice'
 const Analytics = () => {
-    const dummyData = [
-        {
-            date: "2021-07-07T00:00:00Z",
-            app_id: 212211,
-            requests: 36249787,
-            responses: 36329805,
-            impression: 35318801,
-            clicks: 328202,
-            revenue: 5742.423646628184
-        },
-        {
-            date: "2021-07-06T00:00:00Z",
-            app_id: 212112,
-            requests: 46249787,
-            responses: 46329805,
-            impression: 45318801,
-            clicks: 428202,
-            revenue: 6742.423646628184
-        },
-        {
-            date: "2021-07-05T00:00:00Z",
-            app_id: 212113,
-            requests: 56249787,
-            responses: 56329805,
-            impression: 55318801,
-            clicks: 528202,
-            revenue: 7742.423646628184
-        },
-        {
-            date: "2021-07-05T00:00:00Z",
-            app_id: 212113,
-            requests: 56249787,
-            responses: 56329805,
-            impression: 55318801,
-            clicks: 528202,
-            revenue: 7742.423646628184
-        },
-        {
-            date: "2021-07-05T00:00:00Z",
-            app_id: 212113,
-            requests: 56249787,
-            responses: 56329805,
-            impression: 55318801,
-            clicks: 528202,
-            revenue: 7742.423646628184
-        },
-        {
-            date: "2021-05-05T00:00:00Z",
-            app_id: 212213,
-            requests: 56249787,
-            responses: 56329805,
-            impression: 55318801,
-            clicks: 528202,
-            revenue: 7742.423646628184
-        },
-        {
-            date: "2021-06-05T00:00:00Z",
-            app_id: 212213,
-            requests: 56249787,
-            responses: 56329805,
-            impression: 55318801,
-            clicks: 528202,
-            revenue: 7742.423646628184
+    const dispatch = useDispatch()
+    const startDate = useSelector(state => state.date.startDate)
+    const endDate = useSelector(state => state.date.endDate)
+    const columnFormat = useSelector(state => state.setting.boxes)
+    const settingsVisible = useSelector(state => state.setting.showSettingModal)
+
+    const [data, setdata] = useState([])
+    const [formattedData, setFormattedData] = useState(data)
+    // date format function
+    function formatDate(dateString) {
+        const months = [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December"
+        ];
+
+        const date = new Date(dateString);
+        const day = date.getDate();
+        const monthIndex = date.getMonth();
+        const year = date.getFullYear();
+
+        const suffixes = ["st", "nd", "rd", "th"];
+        let suffix = suffixes[3];
+        if (day === 1 || day === 21 || day === 31) {
+            suffix = suffixes[0];
+        } else if (day === 2 || day === 22) {
+            suffix = suffixes[1];
+        } else if (day === 3 || day === 23) {
+            suffix = suffixes[2];
         }
-    ];
+
+        return `${day}${suffix} ${months[monthIndex]} ${year}`;
+    }
+    // fetch data from api
+    useEffect(() => {
+        const fetchData = async () => {
+            if (startDate !== "" && endDate !== "") {
+                axios.get(`http://go-dev.greedygame.com/v3/dummy/report?startDate=${startDate}&endDate=${endDate}`)
+                    .then(res => {
+                        console.log(res.data.data)
+                        setdata(res.data.data)
+                    })
+            }
+        }
+        try {
+            fetchData()
+        } catch (error) {
+            console.log(error)
+        }
+    }, [startDate, endDate])
+
+    // format data
+    useEffect(() => {
+        function formatData(dummyData, dataLayer) {
+            return dummyData.map(item => {
+                const itemData = {};
+
+                dataLayer.forEach(dataLayerItem => {
+                    if (dataLayerItem.available) {
+                        switch (dataLayerItem.id) {
+                            case 'Date':
+                                itemData[dataLayerItem.service_name] = formatDate(item.date);
+                                break;
+                            case 'App Name':
+                                itemData[dataLayerItem.service_name] = item.app_id;
+                                break;
+                            case 'AD Request':
+                                itemData[dataLayerItem.service_name] = item.requests;
+                                break;
+                            case 'AD Response':
+                                itemData[dataLayerItem.service_name] = item.responses;
+                                break;
+                            case 'Impression':
+                                itemData[dataLayerItem.service_name] = item.impressions;
+                                break;
+                            case 'Clicks':
+                                itemData[dataLayerItem.service_name] = item.clicks;
+                                break;
+                            case 'Revenue':
+                                itemData[dataLayerItem.service_name] = Number((item.revenue).toFixed(2));
+                                break;
+                            case 'Fill Rate':
+                                itemData[dataLayerItem.service_name] = Number((
+                                    (item.responses / item.requests) *
+                                    100
+                                ).toFixed(2));
+                                break;
+                            case 'CTR':
+                                itemData[dataLayerItem.service_name] =
+                                    Number(((item.clicks / item.impressions) * 100).toFixed(2));
+
+                                break;
+                            default:
+                                break;
+                        }
+                    } else {
+                        itemData[dataLayerItem.service_name] = "";
+                    }
+                });
+
+                const nonEmptyFields = {};
+                const emptyFields = {};
+
+                Object.keys(itemData).forEach(key => {
+                    if (itemData[key] === "") {
+                        emptyFields[key] = itemData[key];
+                    } else {
+                        nonEmptyFields[key] = itemData[key];
+                    }
+                });
+
+                return { ...nonEmptyFields, ...emptyFields };
+            });
+        }
+
+        setFormattedData(formatData(data, columnFormat))
+    },
+        [columnFormat, data])
+    const tableValidation = (startDate !== "" && startDate !== null && startDate !== undefined) && (endDate !== "" && endDate !== undefined && endDate != null) && formattedData.length > 0
+    return (
+        <div className='analytics-home'>
+            <div className='title-analytics'>Analytics</div>
+            <div className="analytics-buttons">
+                <DateSelect />
+                <div onClick={() => {
+                    dispatch(settingActions.setSettingModal(!settingsVisible));
+                }}
+                    className='settin'
+                >
+                    <img src={require('../assets//logos/settings.png')} alt='settings' className='settings-icon' />
+                    Settings</div>
+            </div>
+            <Settings />
+
+            <div className='table-box'>
+                {tableValidation ? <Table data={formattedData} /> : <ErrorModal />}
 
 
-    
-  return (
-      <div>hello
-          <DateSelect />
-          <Table data={dummyData} /></div>
-  )
+            </div>
+
+        </div>
+    )
 }
 
 export default Analytics
