@@ -1,7 +1,7 @@
 .table-box {
   position: relative;
   height: 400px; /* Set the desired height of the table and error modal */
-  border: 1px solid #ccc;
+
     
   /* overflow: hidden; Hide any overflowing content */
 }

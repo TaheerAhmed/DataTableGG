@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import { logo } from '../assets/logos/filtericon.png';
 import '../styles/Table.css'
+import Select from 'react-select';
 const Table = ({ data }) => {
   const [sortConfig, setSortConfig] = useState(null);
   const [filters, setFilters] = useState({});
   const [filterSelect, setFilterSelect] = useState(false);
   const [sortingState, setSortingState] = useState(null);
+  const [tempSliderValues, setTempSliderValues] = useState({});
 
   const sortData = (data, config) => {
     if (!config) return data;
@@ -30,24 +32,111 @@ const Table = ({ data }) => {
     setSortingState(key);
   };
 
-  const handleFilterChange = (e, key) => {
-    setFilters({ ...filters, [key]: e.target.value });
-  };
 
   const filterData = (data, filters) => {
-    // console.log(filters)
     return data.filter((row) => {
       for (const key in filters) {
-
-        if (String(row[key]).toLowerCase().indexOf(filters[key].toLowerCase()) === -1) {
-          return false;
+        if (key === 'Date' || key === 'App Name') {
+          if (String(row[key]).toLowerCase().indexOf(filters[key].toLowerCase()) === -1) {
+            return false;
+          }
+        } else {
+          if (parseFloat(row[key]) < parseFloat(filters[key])) {
+            return false;
+          }
         }
       }
       return true;
     });
   };
+  const getUniqueValues = (key) => {
+    const uniqueValues = new Set();
+    data.forEach((row) => uniqueValues.add(row[key]));
+    return Array.from(uniqueValues);
+  };
+  const closeFilter = () => {
+    setFilterSelect(null);
+  };
+  const handleFilterChange = (selectedOptionOrEvent, key) => {
+    let value;
+    if (selectedOptionOrEvent && selectedOptionOrEvent.target) {
+      value = selectedOptionOrEvent.target.value;
+      setTempSliderValues({ ...tempSliderValues, [key]: value });
+      return;
+    } else if (selectedOptionOrEvent) {
+      value = selectedOptionOrEvent.value;
+    } else {
+      value = null;
+    }
 
-  const filteredData = filterData(data, filters);
+    if (value) {
+      setFilters({ ...filters, [key]: value });
+    } else {
+      const newFilters = { ...filters };
+      delete newFilters[key];
+      setFilters(newFilters);
+    }
+  };
+
+  const applySliderFilters = (key) => {
+    setFilters({ ...filters, [key]: tempSliderValues[key] });
+    setFilterSelect(null);
+  };
+
+  const resetSlider = (key) => {
+    const newTempSliderValues = { ...tempSliderValues };
+    delete newTempSliderValues[key];
+    setTempSliderValues(newTempSliderValues);
+
+    const newFilters = { ...filters };
+    delete newFilters[key];
+    setFilters(newFilters);
+  };
+  const renderFilter = (key) => {
+    if (key === 'Date' || key === 'App Name') {
+      const uniqueValues = getUniqueValues(key);
+      const options = uniqueValues.map((value) => ({ label: value, value }));
+
+      return (
+        <Select
+          className="filter-select"
+          placeholder={`Filter ${key}`}
+          options={options}
+          isSearchable
+          onChange={(selectedOption) => handleFilterChange(selectedOption, key)}
+          onBlur={() => setFilterSelect(null)}
+        />
+      );
+    } else {
+    const minValue = Math.min(...data.map((row) => row[key]));
+    const maxValue = Math.max(...data.map((row) => row[key]));
+    return (
+      <div className="slider-container">
+        <input
+          type="range"
+          min={minValue}
+          max={maxValue}
+          value={tempSliderValues[key] || minValue}
+          onChange={(e) => handleFilterChange(e, key)}
+        />
+        <div className='min-max'>
+         
+          <span className="slider-min-label">Min:{minValue}</span> 
+          <span className="slider-max-label">Max:{maxValue}</span>
+        </div>
+        
+        <button className="slider-reset-button" onClick={() => resetSlider(key)}>
+          Reset
+        </button>
+        <button className="slider-apply-button" onClick={() => applySliderFilters(key)}>
+          Apply
+        </button>
+        <span className="close-filter" onClick={closeFilter}>x</span>
+      </div>
+    );
+  }
+  };
+  const filteredData = filterData(data, filters, filterSelect);
   const sortedData = sortData(filteredData, sortConfig);
   return (
     <div className="table-container">
@@ -58,16 +147,13 @@ const Table = ({ data }) => {
               <th key={key} className="header-content">
                 {data[0][key] !== "" ? (
                   <>
-                    <div>
+                    <div >
                       {filterSelect === key ? (
-                        <input
-                          type="text"
-                          placeholder={`Filter ${key}`}
-                          onChange={(e) => handleFilterChange(e, key)}
-                          onBlur={() => setFilterSelect(null)}
-                        />
+                        renderFilter(key)
                       ) : (
-                        <div className="image-container">
+                          <div className={`
+                          image-container
+                         ${(key === "Date") || (key === "App Name") ? " alignLeft" :"alignRight" } `}>
                           <img
                             src={require("../assets/logos/filtericon.png")}
                             width={"25px"}
@@ -79,9 +165,9 @@ const Table = ({ data }) => {
                         </div>
                       )}
                     </div>
-                    <div className="header-text">{key}</div>
+                    <div className={`${(key === "Date") || (key==="App Name")? "alignLeft" : "alignRight"} image-container`}>{key}</div>
                     <div>
-                      <div className='image-container'>
+                      <div className={`${(key === "Date") || (key === "App Name") ? "alignLeft" : "alignRight"} image-container`}>
                         {
                           sortingState === key ? (
                             sortConfig.direction === "ascending" ? (
