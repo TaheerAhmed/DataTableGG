@@ -31,12 +31,13 @@ th,
 td {
   padding: 8px 0px 8px 0px;
   width: 5%;
-  min-width: 95px;
+  min-width: 100px;
   text-overflow: ellipsis;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid  #70707045;
   box-sizing: border-box;
-  max-width: 120px;
+  max-width: 130px;
 }
+
 .alignLeft {
   text-align: left;
   padding-left: 20px;
