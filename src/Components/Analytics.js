@@ -4,6 +4,8 @@ import Table from './Table'
 import { useSelector } from 'react-redux'
 import Settings from './Settings'
 import axios from 'axios'
+import ErrorModal from './ErrorModal'
+import '../styles/Analytics.css'
 const Analytics = () => {
 
     const startDate = useSelector(state => state.date.startDate)
@@ -133,7 +135,8 @@ const Analytics = () => {
 console.log(formattedData)
     const tableValidation = (startDate !== "" && startDate !== null && startDate !== undefined) && (endDate !== "" && endDate !== undefined && endDate != null) && formattedData.length > 0
     return (
-        <div>
+        <div className='analytics-home'>
+            <div className='title-analytics'>Analytics</div>
             <div>
                 <DateSelect />
                 <div>
@@ -141,7 +144,7 @@ console.log(formattedData)
                 </div>
             </div>
             <div className='table-box'>
-                {tableValidation ? <Table data={formattedData} /> : <div></div>}
+                {tableValidation ? <Table data={formattedData} /> :<ErrorModal/>}
 
 
             </div>

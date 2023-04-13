@@ -1,0 +1,16 @@
+.table-box {
+  position: relative;
+  height: 400px; /* Set the desired height of the table and error modal */
+  border: 1px solid #ccc;
+    
+  /* overflow: hidden; Hide any overflowing content */
+}
+.analytics-home{
+    margin: 50px;
+}
+.title-analytics{
+    font-size: 20px;
+    font-weight: bold;
+    color:#1D1A1A;
+    margin-bottom: 20px;
+}
