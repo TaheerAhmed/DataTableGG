@@ -1,8 +1,11 @@
-import React ,{useState}from 'react'
+import React, { useState } from 'react'
+import { logo } from '../assets/logos/filtericon.png';
 import '../styles/Table.css'
-const Table = ({data}) => {
-    const [sortConfig, setSortConfig] = useState(null);
+const Table = ({ data }) => {
+  const [sortConfig, setSortConfig] = useState(null);
   const [filters, setFilters] = useState({});
+  const [filterSelect, setFilterSelect] = useState(false);
+  const [sortingState, setSortingState] = useState(null);
 
   const sortData = (data, config) => {
     if (!config) return data;
@@ -24,6 +27,7 @@ const Table = ({data}) => {
       direction = "descending";
     }
     setSortConfig({ key, direction });
+    setSortingState(key);
   };
 
   const handleFilterChange = (e, key) => {
@@ -46,34 +50,90 @@ const Table = ({data}) => {
   const filteredData = filterData(data, filters);
   const sortedData = sortData(filteredData, sortConfig);
   return (
-    <table>
-      <thead>
-        <tr>
-          {Object.keys(data[0]).map((key) => (
-            <th key={key}>
-              {key}
-              <button onClick={() => requestSort(key)}>↑</button>
-              <input
-                type="text"
-                placeholder={`Filter ${key}`}
-                onChange={(e) => handleFilterChange(e, key)}
-              />
-            </th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {sortedData.map((row, index) => (
-          <tr key={index}>
-            {Object.values(row).map((value, index) => (
-              <td key={index}>{value}</td>
+    <div className="table-container">
+      <table>
+        <thead>
+          <tr>
+            {Object.keys(data[0]).map((key) => (
+              <th key={key} className="header-content">
+                {data[0][key] !== "" ? (
+                  <>
+                    <div>
+                      {filterSelect === key ? (
+                        <input
+                          type="text"
+                          placeholder={`Filter ${key}`}
+                          onChange={(e) => handleFilterChange(e, key)}
+                          onBlur={() => setFilterSelect(null)}
+                        />
+                      ) : (
+                        <div className="image-container">
+                          <img
+                            src={require("../assets/logos/filtericon.png")}
+                            width={"25px"}
+                            height={"25px"}
+                            className="filterIcon"
+                            alt="filter"
+                            onClick={() => setFilterSelect(key)}
+                          />
+                        </div>
+                      )}
+                    </div>
+                    <div className="header-text">{key}</div>
+                    <div>
+                      <div className='image-container'>
+                        {
+                          sortingState === key ? (
+                            sortConfig.direction === "ascending" ? (
+                              <img
+                                src={require("../assets/logos/down-arrow.png")}
+                                width={"15px"}
+                                onClick={() => requestSort(key)}
+                                height={"15px"}
+                                alt="down arrow"
+                              />
+                            ) : (
+                              <img
+                                src={require("../assets/logos/up-arrow.png")}
+                                width={"15px"}
+                                onClick={() => requestSort(key)}
+                                height={"15px"}
+                                alt="up arrow"
+                              />
+                            )
+                          ) : (
+                            <img
+                              src={require("../assets/logos/up-arrow.png")}
+                              width={"15px"}
+                              onClick={() => requestSort(key)}
+                              height={"15px"}
+                              alt="up arrow" />
+                          )
+                        }
+                      </div>
+
+                    </div>
+                  </>
+                ) : (
+                  ""
+                )}
+              </th>
             ))}
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {sortedData.map((row, index) => (
+            <tr key={index}>
+              {Object.values(row).map((value, index) => (
+                <td key={index} className={`${typeof value === "string" ? "alignLeft" : "alignRight"} tableRows`}>{value}</td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 
-}
+};
 
 export default Table

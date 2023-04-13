@@ -27,7 +27,6 @@ const DateSelect = () => {
     }
 
   }, [value, dispatch])
-  console.log(value)
   return (
     <div>
       <DateRangePicker

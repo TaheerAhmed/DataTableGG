@@ -1,20 +1,62 @@
-table {
+.table-container {
   width: 100%;
-  border-collapse: collapse;
-  border: 2px red solid;
+  overflow-x: auto;
 }
 
+table {
+  border-collapse: collapse;
+  overflow: hidden;
 
+  table-layout: fixed;
+  min-width: 89vw;
+}
+
+thead {
+  display: table;
+  width: 100%;
+  overflow: hidden;
+  color: #707070;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+tbody {
+  display: block;
+  max-height: 300px;
+  overflow-y: scroll;
+  overflow-x: scroll;
+}
+
+th,
 td {
-  padding: 8px;
-  text-align: right;
+  padding: 8px 0px 8px 0px;
+  width: 5%;
+  min-width: 95px;
+  text-overflow: ellipsis;
   border-bottom: 1px solid #ddd;
+  box-sizing: border-box;
+  max-width: 120px;
+}
+.alignLeft {
+  text-align: left;
+  padding-left: 20px;
+  top: 0;
+}
+.alignRight {
+  text-align: center;
+  padding-right: 10px;
+
+  top: 0;
 }
 
 th {
-  position: relative;
-  text-align: left;
+  display: table-cell;
+  text-align: center;
   padding-left: 10px;
+  white-space: nowrap;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
 }
 
 button {
@@ -32,4 +74,48 @@ input[type="text"] {
   width: 100%;
   box-sizing: border-box;
   margin-top: 4px;
+}
+
+.table-box {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 auto;
+  padding: 1% 3% 1% 3%;
+  border: 20px solid yellow;
+}
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  margin: 4px;
+}
+
+/* @media screen and (min-width: 1025px) {
+  table{
+    width: 100%;
+  }
+  
+} */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track-piece {
+  background-color: #f7fafc;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #777777;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-corner,
+::-webkit-scrollbar-button {
+  display: none;
+}
+.hightlight {
+  background-color: #f2f2f2;
 }
