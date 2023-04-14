@@ -95,7 +95,8 @@ input[type="text"] {
   padding: 15px;
   border-radius: 4px;
   z-index: 1000;
-  width: 300px;
+  width: 30%;
+  height: 50%;
   border: 1px solid #ccc; /* Add a border */
   top: 0; /* Add this property */
   right: 40%; /* Add this property */ /* Add this property */
@@ -165,12 +166,65 @@ input[type="range"] {
   align-items: center;
 }
 
+.filter-container{
+ position: absolute;
+  background-color: #f7f7f7; /* Slightly different from white */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  border-radius: 4px;
+  z-index: 1000;
+  width: 30%;
+  height: 50%;
+  border: 1px solid #ccc; /* Add a border */
+  top: 20%; /* Add this property */
+  left:5%;
+}
+.close-filter-search{
+   position: absolute;
+  top: -5px;
+  right: 5px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+}
+.filter-select{
+
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 5px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+.buttons-filter{
+      display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    align-content: space-between;
+    top: 70%;
+    position: absolute;
+    flex-direction: row-reverse;
+}
 /* @media screen and (min-width: 1025px) {
   table{
     width: 100%;
   }
   
 } */
+@media  screen and (max-width:700px) {
+  .filter-container{
+    width: 100%;
+    height: 30%;
+    top: 0;
+    left: 0;
+  }
+  .slider-container{
+    width: 100%;
+    height: 50%;
+    top: 0;
+    left: 0;
+  }
+ 
+}
 
 ::-webkit-scrollbar {
   width: 6px;
