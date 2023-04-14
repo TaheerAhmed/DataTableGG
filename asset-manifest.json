@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/DataTableGG/static/css/main.25b0502e.css",
-    "main.js": "/DataTableGG/static/js/main.9ddc3aca.js",
+    "main.css": "/DataTableGG/static/css/main.a6916d30.css",
+    "main.js": "/DataTableGG/static/js/main.ed00bba4.js",
     "static/js/787.e46c03ad.chunk.js": "/DataTableGG/static/js/787.e46c03ad.chunk.js",
     "static/media/notepad.png": "/DataTableGG/static/media/notepad.85de82d1ada0d1f3c0d5.png",
     "index.html": "/DataTableGG/index.html",
-    "main.25b0502e.css.map": "/DataTableGG/static/css/main.25b0502e.css.map",
-    "main.9ddc3aca.js.map": "/DataTableGG/static/js/main.9ddc3aca.js.map",
+    "main.a6916d30.css.map": "/DataTableGG/static/css/main.a6916d30.css.map",
+    "main.ed00bba4.js.map": "/DataTableGG/static/js/main.ed00bba4.js.map",
     "787.e46c03ad.chunk.js.map": "/DataTableGG/static/js/787.e46c03ad.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.25b0502e.css",
-    "static/js/main.9ddc3aca.js"
+    "static/css/main.a6916d30.css",
+    "static/js/main.ed00bba4.js"
   ]
 }
