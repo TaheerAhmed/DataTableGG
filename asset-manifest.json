@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/DataTableGG/static/css/main.b997f3e5.css",
-    "main.js": "/DataTableGG/static/js/main.8c77c8e6.js",
+    "main.css": "/DataTableGG/static/css/main.437e7e1b.css",
+    "main.js": "/DataTableGG/static/js/main.97813a5a.js",
     "static/js/787.e46c03ad.chunk.js": "/DataTableGG/static/js/787.e46c03ad.chunk.js",
     "static/media/notepad.png": "/DataTableGG/static/media/notepad.85de82d1ada0d1f3c0d5.png",
     "index.html": "/DataTableGG/index.html",
-    "main.b997f3e5.css.map": "/DataTableGG/static/css/main.b997f3e5.css.map",
-    "main.8c77c8e6.js.map": "/DataTableGG/static/js/main.8c77c8e6.js.map",
+    "main.437e7e1b.css.map": "/DataTableGG/static/css/main.437e7e1b.css.map",
+    "main.97813a5a.js.map": "/DataTableGG/static/js/main.97813a5a.js.map",
     "787.e46c03ad.chunk.js.map": "/DataTableGG/static/js/787.e46c03ad.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.b997f3e5.css",
-    "static/js/main.8c77c8e6.js"
+    "static/css/main.437e7e1b.css",
+    "static/js/main.97813a5a.js"
   ]
 }
