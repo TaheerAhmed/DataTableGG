@@ -51,11 +51,13 @@ const Analytics = () => {
 
         return `${day}${suffix} ${months[monthIndex]} ${year}`;
     }
+    const startDateValidation = (startDate !== "" && startDate !== null && startDate !== undefined && startDate !== "NaN-NaN-NaN")
+    const endDateValidation = (endDate !== "" && endDate !== null && endDate !== undefined && endDate !== "NaN-NaN-NaN")
     // fetch data from api
     useEffect(() => {
         const fetchData = async () => {
-            if (startDate !== "" && endDate !== "") {
-                axios.get(`http://go-dev.greedygame.com/v3/dummy/report?startDate=${startDate}&endDate=${endDate}`)
+            if (startDateValidation&& endDateValidation) {
+                axios.get(`https://go-dev.greedygame.com/v3/dummy/report?startDate=${startDate}&endDate=${endDate}`)
                     .then(res => {
                         console.log(res.data.data)
                         setdata(res.data.data)
@@ -136,7 +138,7 @@ const Analytics = () => {
         setFormattedData(formatData(data, columnFormat))
     },
         [columnFormat, data])
-    const tableValidation = (startDate !== "" && startDate !== null && startDate !== undefined) && (endDate !== "" && endDate !== undefined && endDate != null) && formattedData.length > 0
+    const tableValidation = (startDateValidation) && (endDateValidation) && formattedData.length > 0
     return (
         <div className='analytics-home'>
             <div className='title-analytics'>Analytics</div>
