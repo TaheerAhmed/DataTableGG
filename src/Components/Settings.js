@@ -3,7 +3,8 @@ import Box from './Box'
 import '../styles/Settings.css'
 import { useSelector, useDispatch } from 'react-redux'
 import { settingActions } from '../store/Slices/settingSlice'
-
+import dataLayer from '../constants/datalayer'
+import { tableActions } from '../store/Slices/tableSlice'
 const Settings = () => {
     const dispatch = useDispatch();
     const initialBoxes = useSelector(state => state.setting.boxes);
@@ -60,6 +61,17 @@ const Settings = () => {
         dispatch(settingActions.setSettingModal(false));
 
     };
+    const resetSettings=()=>{
+        setBoxes(dataLayer);
+        dispatch(settingActions.setUpdatedBoxes(dataLayer));
+        dispatch(tableActions.setTempSliderValues({}));
+        dispatch(tableActions.setFilters({}));
+        dispatch(settingActions.setSettingModal(false));
+    }
+    const resetFilters=()=>{
+        dispatch(tableActions.setTempSliderValues({}));
+        dispatch(tableActions.setFilters({}));
+        dispatch(settingActions.setSettingModal(false));}
     return (
         <div>
             {settingsVisible ? (
@@ -103,6 +115,13 @@ const Settings = () => {
                         <button className="save-button" onClick={handleSave}>
                             Apply Changes
                         </button>
+                        <button className='reset-button' onClick={resetSettings}>
+                                Reset
+                        </button>
+                        <button className='reset-button' onClick={resetFilters}>
+                            Reset Filters
+                        </button>
+
                     </div>
                 </div>
             ) : (

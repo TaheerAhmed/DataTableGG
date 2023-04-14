@@ -130,9 +130,9 @@ input[type="range"] {
   margin-right: 5px;
 }
 .slider-reset-button{
-  background-color: red;
+  background-color: white;
   border: 1px solid #eaeaea;
-  color: white;
+  color: black;
 }
 
 .App_Logo{
@@ -141,11 +141,15 @@ input[type="range"] {
 
 .slider-apply-button:hover {
   background-color: white;
-  color:#007bff
+  color:#007bff;
+    border: 1px solid #136fed;
+
 }
 .slider-reset-button:hover{
   background-color: white;
   color: red;
+  border: 1px solid red;
+
 }
 .close-filter {
   position: absolute;

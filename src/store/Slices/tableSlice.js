@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
 const initialTableState = {
     tempSliderValues:{},
-    filteredData:[],
+    filters:{},
     showSettingModal: false
 }
 
@@ -13,7 +13,9 @@ const tableSlice = createSlice(
             setTempSliderValues(state, action) {
                 state.tempSliderValues = action.payload
             },
-            
+            setFilters(state, action) {
+                state.filters = action.payload
+            }
         }
 
     }

@@ -6,10 +6,11 @@ import { tableActions } from '../store/Slices/tableSlice';
 const Table = ({ data }) => {
   const dispatch = useDispatch()
   const [sortConfig, setSortConfig] = useState(null);
-  const [filters, setFilters] = useState({});
+  // const [filters, setFilters] = useState({});
   const [filterSelect, setFilterSelect] = useState(false);
   const [sortingState, setSortingState] = useState(null);
   const tempSliderValues= useSelector(state => state.table.tempSliderValues)
+  const filters=useSelector(state => state.table.filters)
 
 // sort function for the table
   const sortData = (data, config) => {
@@ -73,16 +74,16 @@ const Table = ({ data }) => {
     }
 
     if (value) {
-      setFilters({ ...filters, [key]: value });
+      dispatch(tableActions.setFilters({ ...filters, [key]: value }))
     } else {
       const newFilters = { ...filters };
       delete newFilters[key];
-      setFilters(newFilters);
+      dispatch(tableActions.setFilters(newFilters))
     }
   };
 
   const applySliderFilters = (key) => {
-    setFilters({ ...filters, [key]: tempSliderValues[key] });
+    dispatch(tableActions.setFilters({ ...filters, [key]: tempSliderValues[key] }));
     setFilterSelect(null);
   };
 
@@ -93,7 +94,7 @@ const Table = ({ data }) => {
 
     const newFilters = { ...filters };
     delete newFilters[key];
-    setFilters(newFilters);
+    dispatch(tableActions.setFilters(newFilters))
   };
   const renderFilter = (key) => {
     if (key === 'Date' || key === 'App Name') {
@@ -181,7 +182,7 @@ const Table = ({ data }) => {
   const filteredData = filterData(data, filters, filterSelect);
   const sortedData = sortData(filteredData, sortConfig);
   const formattedHeaderData = totalHeaderData(sortedData);
-
+console.log("sortedData",sortedData)
   return (
     <div className="table-container">
       <table>
@@ -262,7 +263,8 @@ const Table = ({ data }) => {
                   key={index}
                   className={`${typeof value === "string" ? "alignLeft" : "alignRight"} tableRows`}
                 >
-                  {key === "Revenue"
+                  {value===""?""
+                  :key === "Revenue"
                     ? "$" + value
                     : (key === "CTR" || key === "Fill_Rate")
                       ? value + "%"
