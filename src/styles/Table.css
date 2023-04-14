@@ -18,7 +18,7 @@ thead {
 
   color: #707070;
   font-weight: bold;
-  font-size: 18px;
+  font-size: 15px;
   overflow: visible;
 }
 
@@ -44,7 +44,6 @@ td {
 .alignLeft {
   text-align: left;
   justify-content: start;
-  padding-left: 15px;
   top: 0;
 }
 .alignRight {
@@ -56,7 +55,7 @@ td {
 
 th {
   display: table-cell;
-  padding-left: 10px;
+
   white-space: nowrap;
   top: 0;
   z-index: 10;
@@ -83,7 +82,6 @@ input[type="text"] {
   display: flex;
 
   background-color: #ffffff;
-  margin: 4px;
 }
 .filterIcon {
   filter: invert(44%) sepia(0%) saturate(1025%) hue-rotate(275deg)
@@ -131,10 +129,23 @@ input[type="range"] {
   cursor: pointer;
   margin-right: 5px;
 }
+.slider-reset-button{
+  background-color: red;
+  border: 1px solid #eaeaea;
+  color: white;
+}
 
-.slider-reset-button:hover,
+.App_Logo{
+  margin-right: 7px;
+}
+
 .slider-apply-button:hover {
-  background-color: #0056b3;
+  background-color: white;
+  color:#007bff
+}
+.slider-reset-button:hover{
+  background-color: white;
+  color: red;
 }
 .close-filter {
   position: absolute;
@@ -143,6 +154,11 @@ input[type="range"] {
   cursor: pointer;
   font-size: 14px;
   font-weight: bold;
+}
+.headerData{
+  color:black;
+  font-size: 20px;
+  align-items: center;
 }
 
 /* @media screen and (min-width: 1025px) {

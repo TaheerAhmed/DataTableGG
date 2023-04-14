@@ -115,6 +115,9 @@ const Table = ({ data }) => {
     const maxValue = Math.max(...data.map((row) => row[key]));
     return (
       <div className="slider-container">
+        <p>
+          {key}
+        </p>
         <input
           type="range"
           min={minValue}
@@ -139,18 +142,54 @@ const Table = ({ data }) => {
     );
   }
   };
+  // to create the unique dates and app names for the header and also the avg of other fields in the header 
+  function totalHeaderData(arr) {
+    const uniqueDates = new Set();
+    const uniqueAppNames = new Set();
+    let totalCTR = 0;
+    let totalClicks = 0;
+    let totalFillRate = 0;
+    let totalImpression = 0;
+    let totalRevenue = 0;
+    let totalADReqs=0
+    let totalAdRes=0
+
+    for (const item of arr) {
+      uniqueDates.add(item.Date);
+      uniqueAppNames.add(item["App Name"]);
+      totalCTR += item.CTR;
+      totalClicks += item.Clicks || 0;
+      totalFillRate += item["Fill Rate"] || 0;
+      totalImpression += item.Impressions || 0;
+      totalRevenue += parseFloat(item.Revenue || 0);
+      totalADReqs+=item["Requests"]
+      totalAdRes+=item["Responses"]
+    }
+
+    return {
+      "Requests": String((totalADReqs / 1000000).toFixed(2))+"M",
+      "Responses": String((totalAdRes / 1000000).toFixed(2))+"M",
+      "App Name": uniqueAppNames.size,
+      CTR: String((totalCTR / arr.length).toFixed(2))+"%",
+      Clicks: String((totalClicks / 1000000).toFixed(2))+"M",
+      Date: uniqueDates.size,
+      "Fill Rate":String(( totalFillRate / arr.length).toFixed(3))+"%",
+      Impressions:String( (totalImpression / 1000000).toFixed(2))+"M",
+      Revenue:"$"+String((totalRevenue).toFixed(2)),
+    };
+  }
   const filteredData = filterData(data, filters, filterSelect);
-  console.log(tempSliderValues)
-  console.log(filteredData)
   const sortedData = sortData(filteredData, sortConfig);
+  const formattedHeaderData = totalHeaderData(sortedData);
+
   return (
     <div className="table-container">
       <table>
         <thead>
           <tr>
-            {Object.keys(data[0]).map((key) => (
+            {Object.keys(sortedData[0]).map((key) => (
               <th key={key} className="header-content">
-                {data[0][key] !== "" ? (
+                {sortedData[0][key] !== "" ? (
                   <>
                     <div >
                       {filterSelect === key ? (
@@ -204,6 +243,9 @@ const Table = ({ data }) => {
                       </div>
 
                     </div>
+                    {/* Unique date and app ames and avg of other field */}
+                    <div className={`${(key === "Date") || (key === "App Name") ? "alignLeft" : "alignRight"}  headerData`}>
+                      {formattedHeaderData[key]}</div>
                   </>
                 ) : (
                   ""
@@ -215,8 +257,23 @@ const Table = ({ data }) => {
         <tbody>
           {sortedData.map((row, index) => (
             <tr key={index}>
-              {Object.values(row).map((value, index) => (
-                <td key={index} className={`${typeof value === "string" ? "alignLeft" : "alignRight"} tableRows`}>{value}</td>
+              {Object.entries(row).map(([key, value], index) => (
+                <td
+                  key={index}
+                  className={`${typeof value === "string" ? "alignLeft" : "alignRight"} tableRows`}
+                >
+                  {key === "Revenue"
+                    ? "$" + value
+                    : (key === "CTR" || key === "Fill_Rate")
+                      ? value + "%"
+                      : key === "App Name"
+                        ? <>
+                          <img src={require('../assets/logos/moj.png')} alt="App_Logo" style={{ marginLeft: '5px' }} className='App_Logo' />
+                          {value}
+                          
+                        </>
+                        : value}
+                </td>
               ))}
             </tr>
           ))}

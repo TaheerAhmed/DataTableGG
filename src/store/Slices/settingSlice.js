@@ -16,21 +16,21 @@ const initialSettingState = {
         },
         {
             id: "AD Request",
-            service_name: "AD Request",
+            service_name: "Requests",
             order: 3,
             available: true
 
         },
         {
             id: "AD Response",
-            service_name: "AD Response",
+            service_name: "Responses",
             order: 4,
             available: true
 
         },
         {
             id: "Impression",
-            service_name: "Impression",
+            service_name: "Impressions",
             order: 5,
             available: true
 
